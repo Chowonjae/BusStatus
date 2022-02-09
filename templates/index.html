@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="{{url_for('static', filename='img/data-analysis.png')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+        <title>Infomation Monitor</title>
+    </head>
+    <body>
+        <div name="img" class="img">
+            <div name="img cover" class="img-cover">
+                <div name="leftside" class="left">
+                    <div name="currentWeather" class="currentWeather">
+                        <!-- <div class="temp"><p class="str_temp"></p><img src="{{url_for('static', filename='img/weatherIcon/NB01.png')}}"</div> -->
+                    </div>
+                    <div name="weatherforecast" class="weatherfor">
+                        <div name="1st" class="forcast_1st">
+                            <p></p>
+                        </div>
+                        <div name="2st" class="forcast_2st">
+                            <p></p>
+                        </div>
+                        <div name="3st" class="forcast_3st">
+                            <p></p>
+                        </div>
+                        <div name="4st" class="forcast_4st">
+                            <p></p>
+                        </div>
+                        <div name="5st" class="forcast_5st">
+                            <p></p>
+                        </div>
+                    </div>
+                    <div name="Current Time" class="currenttime"></div>
+                </div>
+                <div name="centerside" class="center">
+                    <div name="news" class="news">
+                        asd 
+                    </div>
+                    <div name="covid19" class="covid">
+                        <div name="total" class="total">
+                            total
+                        </div>
+                        <div name="gyeonggi" class="gyeonggi-covid">
+                            경기도
+                        </div>
+                        <div name="yongin" class="yongin-covid">
+                            용인시
+                        </div>
+                    </div>
+                </div>
+                <div name="rightside" class="right">
+                    <div name="BusStop" class="busrealtime">
+                    
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/index.js')}}"></script>
+    </body>
+</html>

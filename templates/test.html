@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="{{url_for('static', filename='img/data-analysis.png')}}">
+        <link rel="stylesheet" href="/static//css/test.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+        <title>Infomation Monitor</title>
+    </head>
+    <body>
+        <div name="img" class="img">
+            <div name="img cover" class="img-cover">
+                <div name="leftside" class="left">
+                    <div class="currentside">
+                        <div name="currentWeather" class="currentWeather">
+                            <div class="top">
+                                <p name="temperture" class="temp">15도</p>
+                                <img src="/static/img/weatherIcon/NB01.png" class="temp_icon"/>
+                            </div>
+                            <div class="bottom">
+                                <p name="temperture" calss="humi">23%</p>
+                            </div>
+                            <div class="bottom">
+                                <p name="temperture" calss="windspeed">1m/s</p>
+                            </div>
+                            <div class="bottom">
+                                <p name="temperture" calss="rain">0mm</p>
+                            </div>
+                        </div>
+                        <div name="CurrentTime" class="currenttime">
+                            <div>
+                                <p class="hour">23</p>
+                            </div>
+                            <div>
+                                <p class="min">50</p>
+                            </div>
+                            <div>
+                                <p class="year">2022년</p>
+                            </div>
+                            <div>
+                                <p class="month">2월</p>
+                            </div>
+                            <div>
+                                <p class="day">9일</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div name="weatherforecast" class="weatherfor">
+                        <div name="1st" class="forcast">
+                            <p class="timename">16:00</p>
+                            <img src="/static/img/weatherIcon/NB01.png">
+                            <div>
+                                <p class="forcast_temp">20도</p>
+                                <p class="forcast_humi">30%</p>
+                            </div>
+                        </div>
+                        <div name="2st" class="forcast">
+                            <p class="timename">17:00</p>
+                            <img src="/static/img/weatherIcon/NB01_N.png">
+                            <div>
+                                <p class="forcast_temp">20도</p>
+                                <p class="forcast_humi">30%</p>
+                            </div>
+                        </div>
+                        <div name="3st" class="forcast">
+                            <p class="timename">18:00</p>
+                            <img src="/static/img/weatherIcon/NB01_N.png">
+                            <div>
+                                <p class="forcast_temp">20도</p>
+                                <p class="forcast_humi">30%</p>
+                            </div>
+                        </div>
+                        <div name="4st" class="forcast">
+                            <p class="timename">19:00</p>
+                            <img src="/static/img/weatherIcon/NB01_N.png">
+                            <div>
+                                <p class="forcast_temp">20도</p>
+                                <p class="forcast_humi">30%</p>
+                            </div>
+                        </div>
+                        <div name="5st" class="forcast">
+                            <p class="timename">20:00</p>
+                            <img src="/static/img/weatherIcon/NB01_N.png">
+                            <div>
+                                <p class="forcast_temp">20도</p>
+                                <p class="forcast_humi">30%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div name="covid19" class="covid">
+                        <p name="covid19_level" class="covid19_level">코로나 19 현황</p>
+                        <table>
+                            <tr>
+                                <td class="area"></td>
+                                <td class="covid_title">누적 확진자</td>
+                                <td class="covid_title">전일 확진자</td>
+                                <td class="covid_title">지역감염</td>
+                                <td class="covid_title">해외유입</td>
+                                <td class="covid_title">100,000명</td>
+                            </tr>
+                            <tr>
+                                <td class="area">서울</td>
+                                <td class="covid_num">11111</td>
+                                <td class="covid_num">123123</td>
+                                <td class="covid_num">123</td>
+                                <td class="covid_num">1234</td>
+                                <td class="covid_num">12345</td>
+                            </tr>
+                            <tr>
+                                <td class="area">경기</td>
+                                <td class="covid_num">11111</td>
+                                <td class="covid_num">123123</td>
+                                <td class="covid_num">123</td>
+                                <td class="covid_num">1234</td>
+                                <td class="covid_num">12345</td>
+                            </tr>
+                            <tr>
+                                <td class="area">대전</td>
+                                <td class="covid_num">11111</td>
+                                <td class="covid_num">123123</td>
+                                <td class="covid_num">123</td>
+                                <td class="covid_num">1234</td>
+                                <td class="covid_num">12345</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div name="BusStop" class="busrealtime">
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/index.js')}}"></script>
+    </body>
+</html>
