@@ -4,7 +4,7 @@ from flask import Flask, render_template, jsonify
 from API import API
 
 app = Flask(__name__, static_url_path='/static')
-
+a = API()
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
@@ -13,14 +13,14 @@ def main():
 
 @app.route('/main/WeatherState', methods=['GET', 'POST'])
 def WeatherState_ajax():
-    a = API()
+    # a = API()
     data = a.getWeatherState()
     return jsonify(result1="success", result2=data)
 
 
 @app.route('/main/WeatherForecast', methods=['GET', 'POST'])
 def WeatherForecast_ajax():
-    a = API()
+    # a = API()
     data = a.getWeatherForecast()
 
     return jsonify(data)
@@ -28,7 +28,7 @@ def WeatherForecast_ajax():
 
 @app.route('/main/FineDust', methods=['GET', 'POST'])
 def FineDust_ajax():
-    a = API()
+    # a = API()
     data = a.getFineDust()
 
     return jsonify(data)
@@ -36,10 +36,25 @@ def FineDust_ajax():
 
 @app.route('/main/Covid19', methods=['GET', 'POST'])
 def Covid19_ajax():
-    a = API()
+    # a = API()
     data = a.getCovid19_Info()
 
     return jsonify(data)
+
+
+@app.route('/main/Dodam', methods=['GET', 'POST'])
+def Dodam_ajax():
+    data = a.dodam()
+
+    return jsonify(data)
+
+
+@app.route('/main/Daeji', methods=['GET', 'POST'])
+def Daeji_ajax():
+    data = a.daeji()
+
+    return jsonify(data)
+
 
 
 @app.route('/')

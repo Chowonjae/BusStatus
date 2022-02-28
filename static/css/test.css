@@ -1,9 +1,13 @@
 html{
+    width: 100%;
     height: 100%;
-    /* font-size: 110%; */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 body{
     position: absolute; top: 0; bottom: 0; right: 0; left: 0; margin: 0;
+    cursor: none;
 }
 div{
     margin: 0; padding: 0;
@@ -12,16 +16,17 @@ p{
     margin: 0; padding: 0; color: white;
     font-family: "Open Sans", sans-serif;
 }
-table{
+.covid_table{
     padding: 0;
     width: 97%;
     border-collapse: collapse;
-    background-color: rgba(238, 130, 238, 0.4);
-    border-radius: 40px 40px 40px 40px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px 10px 10px 10px;
     margin-left: 16px;
+    color: white;
 }
-td{
-    /* border: 1px solid #000; */
+.covid_table td{
+    border: 1px solid rgb(128, 128, 128, 0.5);
     padding: 0;
     width: 16.6%;
     text-align: center;
@@ -66,12 +71,12 @@ td{
     float: left;
 }
 .temp{
-    font-size: 180%;
+    font-size: 250%;
     padding: 32px 0px 5px 30px;
     float: left;
 }
 .temp_icon{
-    padding: 20px 20px 5px 5px;
+    padding: 30px 20px 5px 5px;
 }
 .bottom > p{
     padding: 0px 2px 0px 30px;
@@ -79,31 +84,33 @@ td{
     float: left;
 }
 .currenttime{
+    /* background-color: aliceblue; */
     position: relative;
     height: 100%;
-    width: 40%;
+    width: 22%;
     font-weight: 500;
     float: right;
+    /* text-align: right; */
 }
 .hour{
-    padding: 25px 10px 5px 20px;
+    padding: 32px 10px 5px 20px;
     font-size: 250%;
     float: left;
 }
 .min{
-    padding: 25px 0px 5px 20px;
+    padding: 32px 0px 5px 20px;
     font-size: 250%;
 }
 .year{
-    padding: 0px 5px 0px 10px;
+    padding: 0px 2px 0px 5px;
     float: left;
 }
 .month{
-    padding: 0px 5px 0px 10px;
+    padding: 0px 5px 0px 5px;
     float: left;
 }
 .day{
-    padding: 0px 5px 0px 20px;
+    padding: 0px 5px 0px 8px;
 }
 .weatherfor{
     width: 100%;
@@ -116,8 +123,8 @@ td{
     width: 17%;
     float: left;
 }
-.forcast > img{
-    padding: 0px 0px 0px 43px;
+.forcast > div > img{
+    padding: 0px 0px 0px 25px;
 }
 .timename{
     background-color: rgba(0, 0, 0, 0.4);
@@ -126,14 +133,119 @@ td{
 }
 .forcast_temp{
     float: left;
-    padding: 0px 5px 0px 43px;
+    padding: 0px 5px 0px 25px;
 }
 .covid19_level{
-    background-color: rgba(238, 130, 238, 0.4);
-    border-radius: 40px 40px 40px 40px;
-    font-weight: 500;
-    text-align: center;
+    /* position: relative; */
+    /* background-color: antiquewhite; */
     margin-bottom: 10px;
-    margin-left: 16px;
-    margin-right: 5px;
+    /* margin-left: 40%;
+    margin-right: 5px; */
+    /* text-align: center; */
+    /* width: 99%;
+    height: 20%; */
+}
+.covid19_level > div > .covid_title{
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px 10px 10px 10px;
+    text-align: center;
+    font-weight: 500;
+    margin-left: 40%;
+    /* margin-bottom: 10px; */
+    width: 20%;
+    float: left;
+}
+.covid19_level > div > .stdDay{
+    text-align: right;
+    font-weight: 400;
+    font-size: 80%;
+    /* float: right; */
+    margin-right: 10px;
+}
+.right{
+    /* background-color: aliceblue; */
+    width: 65%;
+    height: 100%;
+    margin-left: 35%;    
+}
+#calendar-container{
+    padding: 10px;
+}
+#calendar{
+    /* height: 100%; */
+    color: white;
+    background-color: rgb(0, 0, 0, 0.2);
+    border-radius: 10px 10px 10px 10px;
+    padding: 5px 10px 10px 10px;
+}
+.realtimebusside{
+    position: relative;
+    /* background-color: antiquewhite; */
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 16px;
+    width: 97%;
+    height: 55%;
+}
+.dodam_title{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.dodam_1st{
+    position: relative;
+    /* background-color: black; */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px 10px 10px 10px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 2px;
+}
+.car_num{
+    /* background-color: aqua; */
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 230%;
+    float: left;
+}
+.car_name{
+    padding-top: 6px;
+}
+.arrival_infomation_1st{
+    /* background-color: blue; */
+    width: 40%;
+    height: 100%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 90%;
+    float: left;
+}
+.arrival_1st{
+    padding-top: 5px;
+    padding-bottom: 3px;
+}
+.arrival_infomation_2nd{
+    /* background-color: rebeccapurple; */
+    height: 100%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 90%;
+}
+.arrival_2nd{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.daeji_title{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.daeji_1st{
+    position: relative;
+    /* background-color: black; */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px 10px 10px 10px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 2px;
 }

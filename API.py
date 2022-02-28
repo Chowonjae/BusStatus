@@ -3,34 +3,14 @@ import requests
 import datetime
 import math
 import xmltodict
-
+import urllib.request as re
 
 class API:
     def __init__(self):
         with open('package.json', 'r') as f:
             self.json_data = json.load(f)
 
-        self.stationId = self.getBusStopNum()
         self.precipitation_type = {0: '맑음', 1: '비', 2: '비/눈', 3: '눈', 5: '빗방울', 6: '빗방울눈날림', 7: '눈날림'}
-        # print(self.json_data['key']['getBusArrival'])
-
-    def getBusArrival_I_PARK(self, stationId, routeId, staOrder):
-        url = 'http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalItem'
-        params = {'serviceKey': self.json_data['key']['getBusArrival'],
-                  'stationId': stationId, 'routeId': routeId, 'staOrder': staOrder}
-
-        response = requests.get(url, params=params)
-        return response.text
-
-    def getBusStopNum(self):
-        url = 'http://apis.data.go.kr/4050000/busstop/getBusstop'
-        params = {'serviceKey': self.json_data['key']['getBusStopNum'], 'pageNo': '1', 'numOfRows': '5',
-                  'stop_nm': '도담마을아이파크.죽전휴먼', 'gu': '수지', 'stty_emd_nm': '죽전'}
-
-        response = requests.get(url, params=params)
-        for l in response.json()['items']:
-            if '29272' == l['stop_no']:
-                return l['stop_id']
 
     def getFineDust(self):
         url = 'http://apis.data.go.kr/B552584/ArpltnStatsSvc/getCtprvnMesureSidoLIst'
@@ -57,11 +37,10 @@ class API:
         url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst'
         params = {
             'serviceKey': self.json_data['key']['getWeatherState'],
-            'pageNo': '1', 'numOfRows': '1000', 'dataType': 'JSON', 'base_date': base_date, 'base_time': '0000',
+            'pageNo': '1', 'numOfRows': '1000', 'dataType': 'JSON', 'base_date': base_date, 'base_time': base_time,
             'nx': '62', 'ny': '122'}
 
         response = requests.get(url, params=params).json()
-        # print(response)
         for l in response['response']['body']['items']['item']:
             category = l['category']
             if category == 'T1H':  # 기온
@@ -91,7 +70,7 @@ class API:
         url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst'
         params = {
             'serviceKey': self.json_data['key']['getWeatherState'],
-            'pageNo': '1', 'numOfRows': '1000', 'dataType': 'JSON', 'base_date': base_date, 'base_time': '0000',
+            'pageNo': '1', 'numOfRows': '1000', 'dataType': 'JSON', 'base_date': base_date, 'base_time': base_time,
             'nx': '62', 'ny': '122'}
 
         response = requests.get(url, params=params).json()
@@ -125,27 +104,101 @@ class API:
         xml_data = response.text
         json_string = json.dumps(xmltodict.parse(xml_data), ensure_ascii=False)
         json_dict = json.loads(json_string)
-
+        # print(json_dict)
         for l in json_dict['response']['body']['items']['item']:
             for i in l:
-                if i == 'deathCnt':
-                    total[l['gubun']] = [('사망자 수', l[i])]
-                elif i == 'defCnt':
-                    total[l['gubun']].append(('총 확진자 수', l[i]))
-                elif i == 'incDec':
-                    total[l['gubun']].append(('확진자 수', l[i]))
-                elif i == 'isolClearCnt':
-                    total[l['gubun']].append(('격리 해제 수', l[i]))
-                elif i == 'localOccCnt':
-                    total[l['gubun']].append(('지역 감염', l[i]))
-                elif i == 'overFlowCnt':
-                    total[l['gubun']].append(('해외유입', l[i]))
-                elif i == 'qurRate':
-                    total[l['gubun']].append(('10만명당 발생률', l[i]))
-                elif i == 'stdDay':
-                    total[l['gubun']].append(('기준일', l[i]))
+                if l['gubun'] == '경기' or l['gubun'] == '대전' or l['gubun'] == '서울' or l['gubun'] == '합계':
+                    if i == 'defCnt':
+                        total[l['gubun']] = [('총 확진자 수', l[i])]
+                    elif i == 'incDec':
+                        total[l['gubun']].append(('확진자 수', l[i]))
+                    elif i == 'localOccCnt':
+                        total[l['gubun']].append(('지역 감염', l[i]))
+                    elif i == 'overFlowCnt':
+                        total[l['gubun']].append(('해외유입', l[i]))
+                    elif i == 'qurRate':
+                        total[l['gubun']].append(('10만명당 발생률', l[i]))
+                    elif i == 'stdDay':
+                        total[l['gubun']].append(('기준일', l[i]))
 
         return total
+
+    def dodam(self):
+        custom_header = {
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'}
+
+        url = 'https://api.gbis.go.kr/ws/rest/busarrivalservice/tvstation?serviceKey=1234567890&stationId=228001059'
+        req = requests.get(url, headers=custom_header)
+        req.encoding = 'utf-8'
+
+        xml_data = req.text
+        json_string = json.dumps(xmltodict.parse(xml_data), ensure_ascii=False)
+        json_dict = json.loads(json_string)
+        # print(json_dict)
+        dir = json_dict['response']['msgBody']['busArrivalList']
+        bus_arrival_information = {}
+        for infomation in dir:
+            if infomation['routeName'] == '59':
+                bus_arrival_information['59'] = (
+                    infomation['locationNo1'],
+                    infomation['predictTime1'] if infomation['predictTime1'] is not None else None,
+                    infomation['locationNo2'],
+                    infomation['predictTime2'] if infomation['predictTime2'] is not None else None)
+            elif infomation['routeName'] == '60':
+                bus_arrival_information['60'] = (
+                    infomation['locationNo1'],
+                    infomation['predictTime1'] if infomation['predictTime1'] is not None else None,
+                    infomation['locationNo2'],
+                    infomation['predictTime2'] if infomation['predictTime2'] is not None else None)
+            elif infomation['routeName'] == '22':
+                bus_arrival_information['22'] = (
+                    infomation['locationNo1'],
+                    infomation['predictTime1'] if infomation['predictTime1'] is not None else None,
+                    infomation['locationNo2'],
+                    infomation['predictTime2'] if infomation['predictTime2'] is not None else None)
+            elif infomation['routeName'] == '9000-1':
+                bus_arrival_information['9000-1'] = (
+                    infomation['locationNo1'],
+                    infomation['predictTime1'] if infomation['predictTime1'] is not None else None,
+                    infomation['locationNo2'],
+                    infomation['predictTime2'] if infomation['predictTime2'] is not None else None)
+            elif infomation['routeName'] == '57':
+                bus_arrival_information['57'] = (
+                    infomation['locationNo1'],
+                    infomation['predictTime1'] if infomation['predictTime1'] is not None else None,
+                    infomation['locationNo2'],
+                    infomation['predictTime2'] if infomation['predictTime2'] is not None else None)
+
+        return bus_arrival_information
+
+    def daeji(self):
+        custom_header = {
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'}
+
+        url = 'https://api.gbis.go.kr/ws/rest/busarrivalservice/tvstation?serviceKey=1234567890&stationId=228003549'
+        req = requests.get(url, headers=custom_header)
+        req.encoding = 'utf-8'
+
+        xml_data = req.text
+        json_string = json.dumps(xmltodict.parse(xml_data), ensure_ascii=False)
+        json_dict = json.loads(json_string)
+        dir = json_dict['response']['msgBody']['busArrivalList']
+        bus_arrival_infomation = {}
+        for infomation in dir:
+            if infomation['routeName'] == '25':
+                bus_arrival_infomation['25'] = (
+                    infomation['locationNo1'],
+                    infomation['predictTime1'] if infomation['predictTime1'] is not None else None,
+                    infomation['locationNo2'],
+                    infomation['predictTime2'] if infomation['predictTime2'] is not None else None)
+            else:
+                bus_arrival_infomation['29-1'] = (
+                    infomation['locationNo1'],
+                    infomation['predictTime1'] if infomation['predictTime1'] is not None else None,
+                    infomation['locationNo2'],
+                    infomation['predictTime2'] if infomation['predictTime2'] is not None else None)
+
+        return bus_arrival_infomation
 
 
 if __name__ == '__main__':
@@ -154,5 +207,8 @@ if __name__ == '__main__':
     # print(a.getBusStopNum())
     # print(a.getFineDust())
     # print(a.getWeatherState())
-    print(a.getWeatherForecast())
-    # print(a.getCovid19_Info())
+    # print(a.getWeatherForecast())
+    print(a.getCovid19_Info())
+    # print(a.getStationByUidCon())
+    # print(a.dodam())
+    # print(a.daeji())

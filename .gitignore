@@ -1,2 +1,6 @@
 /package.json
 /test.py
+static/chromedriver_win.exe
+static/chromedriver_mac
+templates/test.html
+static/css/test.css
